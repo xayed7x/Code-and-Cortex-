@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-background text-brand-text;
+  }
+}
+body{
+  color:#bd8ce4 ;
+}
+/* Add this at the end of the file */
+@keyframes rotate_border {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Defines the rotation animation for our --angle property. */
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* The class that activates the animated border */
+.animated-border {
+  position: relative;
+  /* overflow: hidden; Ensures the glow doesn't leak out of the corners */
+  border-radius: 1rem; /* 16px */
+}
+
+/* Shared styles for both the border and the glow pseudo-elements */
+.animated-border::before,
+.animated-border::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: inherit; /* Inherits the parent's border-radius */
+  width: calc(100% + 4px); /* Slightly larger than parent */
+  height: calc(100% + 4px); /* Slightly larger than parent */
+  animation: spin 5s linear infinite; /* Applies the rotation */
+}
+
+/* The visible, sharp border line */
+.animated-border::after {
+  background: conic-gradient(
+    from var(--angle),
+    #3C096C, /* Secondary Accent */
+    #9D4EDD 25%, /* Primary Accent */
+    #3C096C 50%,
+    transparent 70%, /* Start of the transparent 'tail' */
+    transparent 95%,
+    #3C096C /* Repeat first color for smooth loop */
+  );
+}
+
+/* The blurred glow effect */
+.animated-border::before {
+  background: conic-gradient(
+    from var(--angle),
+    #3C096C,
+    #9D4EDD 25%,
+    #3C096C 50%,
+    transparent 70%,
+    transparent 95%,
+    #3C096C
+  );
+  filter: blur(1.8rem); /* The blur effect */
+  opacity: 0.6; /* A more subtle glow */
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 25px rgba(157, 78, 221, 0.3), 0 0 50px rgba(157, 78, 221, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 45px rgba(157, 78, 221, 0.6), 0 0 75px rgba(157, 78, 221, 0.4);
+  }
+}
