@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-start gap-3 group">
               <Image
-                src="/logot.png"
+                src="/logo.png"
                 alt="Code & Cortex Logo"
                 width={40}
                 height={40}
