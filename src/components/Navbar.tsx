@@ -4,24 +4,19 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-// --- NEW: Import hooks from Next.js for location awareness ---
 import { usePathname, useRouter } from "next/navigation";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // --- NEW: Get the current page's path and the router instance ---
   const pathname = usePathname();
   const router = useRouter();
 
-  // Update links to have full paths from the root
   const navLinks = [
     { name: "Showcase", href: "/#showcase-section" },
     { name: "Process", href: "/#process" },
     { name: "AI Lab", href: "/#ai-lab" },
   ];
 
-  // --- UPGRADED: The new smooth scroll logic ---
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
@@ -29,41 +24,50 @@ const Navbar: React.FC = () => {
     e.preventDefault();
     const targetId = href.replace(/.*#/, "");
 
-    // If we are already on the homepage, just scroll smoothly.
     if (pathname === "/") {
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else {
-      // If we are on another page, navigate to the homepage with the hash.
-      // Next.js will handle scrolling to the element with that ID on the new page.
       router.push(href);
     }
-    // Close mobile menu if open
     setIsMenuOpen(false);
   };
 
   const navVariants = {
-    /* ... (no changes here) ... */
+    hidden: { opacity: 0, y: -25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
+
   const mobileMenuVariants = {
-    /* ... (no changes here) ... */
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.2, ease: "easeIn" } },
   };
 
   return (
+    // THE FIX: Add `relative` to make this the positioning context for the absolute menu
     <motion.nav
       variants={navVariants}
       initial="hidden"
       animate="visible"
-      className="sticky top-0 z-50 w-full bg-brand-background/80 backdrop-blur-lg border-b border-brand-surface"
+      className="sticky top-0 z-50 w-full bg-brand-background/80 backdrop-blur-lg border-b border-brand-surface relative"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-start gap-3 group">
               <Image
-                src="/logo.png"
+                src="/logot.png"
                 alt="Code & Cortex Logo"
                 width={40}
                 height={40}
@@ -84,7 +88,6 @@ const Navbar: React.FC = () => {
             <ul className="flex items-baseline space-x-8">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  {/* Use the new onClick handler */}
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
@@ -98,7 +101,6 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:block">
-            {/* The contact link also needs the new handler */}
             <a
               href="/#contact"
               onClick={(e) => handleLinkClick(e, "/#contact")}
@@ -109,13 +111,49 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} /* ... */>
-              {/* ... icon ... */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-brand-text/70 focus:outline-none"
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </div>
 
+      {/* --- MOBILE MENU PANEL: MOVED OUTSIDE THE FLEX CONTAINER & POSITIONED ABSOLUTELY --- */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -123,7 +161,7 @@ const Navbar: React.FC = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="md:hidden bg-brand-surface/95"
+            className="absolute top-full left-0 w-full bg-brand-surface/95 backdrop-blur-md md:hidden"
           >
             <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (

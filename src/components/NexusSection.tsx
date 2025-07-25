@@ -65,6 +65,8 @@ const NexusSection: React.FC = () => {
     alert("Mission Briefing Sent! (Placeholder)");
   };
 
+  const headlineText = ["Ready to build", "your legacy?"];
+
   return (
     <section
       ref={sectionRef} // Add ref for ScrollTrigger
@@ -88,9 +90,18 @@ const NexusSection: React.FC = () => {
       <div className="relative z-10 flex-grow flex flex-col justify-center items-center w-full max-w-2xl text-center">
         <h2
           ref={headlineRef}
-          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6 "
+          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6"
         >
-          Ready to build your legacy?
+          {headlineText.map((line, i) => (
+            <React.Fragment key={i}>
+              {line.split("").map((char, j) => (
+                <span key={j} className="inline-block opacity-0">
+                  {char}
+                </span>
+              ))}
+              {i < headlineText.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </h2>
         <p className="max-w-xl text-lg text-brand-text/80 font-satoshi mb-12">
           Our studio is ready to architect your next digital masterpiece. Let's
