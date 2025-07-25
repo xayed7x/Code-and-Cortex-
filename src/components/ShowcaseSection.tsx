@@ -10,14 +10,14 @@ const projects = [
     title: "AURA - A Bespoke Digital Flagship for a Luxury Perfume Brand",
     description:
       "Fusing interactive 3D with a Personalized recommendation engine.",
-    imageUrl: "/AURA.png",
+    imageUrl: "/aura.png",
     techStack: ["Next.js","React","Typescript","Tailwind css","Python", "Django","REST Framework", "GSAP",  "React Three Fiber", "Drei", "JWT", "PostgreSQL",],
   },
   {
     slug: "ai-brand-tone-analyzer",
     title: "The Mentor in the Machine: Architecting QBrain AI",
     description: "Engineering a hyper-local, curriculum-aware AI tutor to revolutionize exam preparation for a nation of students.",
-    imageUrl: "/Qbrain-Ai.png",
+    imageUrl: "/qbrain.png",
     techStack: ["HTML","CSS", "JS", "FastAPI", "Python", "React", "GSAP" ],
   },
 ];
