@@ -1,7 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // You can add any Next.js specific configuration here in the future.
-  // For now, a clean and simple config is all we need.
+  images: {
+    // This configuration allows Next.js to optimize images from the same domain.
+    // It's the standard setup for images stored in the /public folder.
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.vercel.app", // Allows images from your Vercel deployment URL
+      },
+      {
+        protocol: "http",
+        hostname: "localhost", // Allows images for local development
+      },
+    ],
+  },
   reactStrictMode: true,
 };
 
