@@ -51,7 +51,8 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "personalized-ecommerce-experience",
-    showcaseVideoUrl: '/videos/AURA.mp4',
+    showcaseVideoUrl:
+      "https://player.vimeo.com/video/1099619139?autoplay=1&dnt=1&byline=0&portrait=0&title=0", // Use embedded Vimeo video URL
     hero: {
       title: "AURA: Architecting a Bespoke Digital Flagship",
       tagline:

@@ -2,6 +2,7 @@
 
 import React from "react";
 import ProjectCard from "./ProjectCard";
+import AnimatedBorderCard from './AnimatedBorderCard';
 
 // THE DATA STRUCTURE: Mock data array for our projects
 const projects = [
@@ -11,6 +12,8 @@ const projects = [
     description:
       "Fusing interactive 3D with a Personalized recommendation engine.",
     imageUrl: "/aura.png",
+    caseStudyUrl: "#", // This is the case study link
+    liveUrl: "https://aura-frontend-gamma.vercel.app" ,// <-- ADD THIS
     techStack: ["Next.js","React","Typescript","Tailwind css","Python", "Django","REST Framework", "GSAP",  "React Three Fiber", "Drei", "JWT", "PostgreSQL",],
   },
   {
@@ -18,6 +21,8 @@ const projects = [
     title: "The Mentor in the Machine: Architecting QBrain AI",
     description: "Engineering a hyper-local, curriculum-aware AI tutor to revolutionize exam preparation for a nation of students.",
     imageUrl: "/qbrain.png",
+    caseStudyUrl: "#", // This is the case study link
+    liveUrl: "https://qbrain-ai.vercel.app/", // <-- ADD THIS
     techStack: ["HTML","CSS", "JS", "FastAPI", "Python", "React", "GSAP" ],
   },
 ];

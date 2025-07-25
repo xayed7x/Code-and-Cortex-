@@ -2,10 +2,8 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { projects } from '@/lib/projects-data'; 
-import Navbar from '@/components/Navbar';  // Import data from our new central file
-
-
+import { projects } from "@/lib/projects-data";
+import Navbar from "@/components/Navbar"; // Import data from our new central file
 
 export default function CaseStudyPage({
   params,
@@ -22,7 +20,7 @@ export default function CaseStudyPage({
 
   return (
     <>
-      <Navbar />  {/* The new, persistent navigation header */}
+      <Navbar /> {/* The new, persistent navigation header */}
       <main className="bg-brand-background text-brand-text font-satoshi">
         {/* All sections below will now be populated by the dynamic 'project' object */}
 
@@ -48,22 +46,35 @@ export default function CaseStudyPage({
           </div>
         </section>
 
-         {project.showcaseVideoUrl && (
-                    <section className="pb-24 px-6">
-                        <div className="max-w-5xl mx-auto">
-                            <div className="animated-border p-1 rounded-2xl">
-                                <div className="relative bg-brand-background rounded-xl overflow-hidden shadow-2xl shadow-brand-accent/20">
-                                    <video
-                                        src={project.showcaseVideoUrl}
-                                        controls
-                                        playsInline
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                )}
+        {project.showcaseVideoUrl && (
+          <section className="pb-24 px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="animated-border p-1 rounded-2xl">
+                <div className="relative bg-brand-background rounded-xl overflow-hidden shadow-2xl shadow-brand-accent/20">
+                  {project.showcaseVideoUrl.startsWith(
+                    "https://player.vimeo.com/"
+                  ) ? (
+                    <iframe
+                      src={project.showcaseVideoUrl}
+                      className="w-full aspect-video"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title={project.hero.title}
+                    />
+                  ) : (
+                    <video
+                      src={project.showcaseVideoUrl}
+                      controls
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Other sections (Brief, Cortex, Code, Impact) remain structurally the same, */}
         {/* but are now populated dynamically from the 'project' variable. */}

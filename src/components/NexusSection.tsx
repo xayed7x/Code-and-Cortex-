@@ -88,7 +88,7 @@ const NexusSection: React.FC = () => {
       <div className="relative z-10 flex-grow flex flex-col justify-center items-center w-full max-w-2xl text-center">
         <h2
           ref={headlineRef}
-          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6 whitespace-nowrap"
+          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6 "
         >
           Ready to build your legacy?
         </h2>

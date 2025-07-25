@@ -26,15 +26,17 @@ const LiveAILab: React.FC = () => {
     setResult(null);
     setError(null);
 
-    // Animate the brain icon while we fetch the data
+    // Animate the brain icon for 6 seconds
     gsap.to(brainIconRef.current, {
       rotation: "+=1080",
-      duration: 3,
+      duration: 6,
       ease: "power1.inOut",
     });
 
+    let data: AnalysisResult | null = null;
+    let errorMsg: string | null = null;
+
     try {
-      // Call our own backend API
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -45,16 +47,18 @@ const LiveAILab: React.FC = () => {
         throw new Error(`API Error: ${response.statusText}`);
       }
 
-      const data: AnalysisResult = await response.json();
-      setResult(data);
+      data = await response.json();
     } catch (err) {
-      setError("Analysis failed. Please try again.");
+      errorMsg = "Analysis failed. Please try again.";
       console.error(err);
-    } finally {
-      // Ensure the loading state is turned off even if the API call is fast
-      // We use a GSAP delay to match the animation duration
-      gsap.delayedCall(3, () => setIsLoading(false));
     }
+
+    // Wait for the animation to finish, then show the result instantly
+    gsap.delayedCall(6, () => {
+      setIsLoading(false);
+      if (data) setResult(data);
+      if (errorMsg) setError(errorMsg);
+    });
   };
 
   return (

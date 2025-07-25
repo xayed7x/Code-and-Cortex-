@@ -4,43 +4,44 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-// Define the Navbar's props
-interface NavbarProps {
-  pageType?: 'home' | 'caseStudy';
-}
+// --- NEW: Import hooks from Next.js for location awareness ---
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // CORRECTED: The href for Showcase now points to the correct ID
+  // --- NEW: Get the current page's path and the router instance ---
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Update links to have full paths from the root
   const navLinks = [
-    { name: "Showcase", href: "#showcase-section" },
-    { name: "Process", href: "#process" },
-    { name: "AI Lab", href: "#ai-lab" },
+    { name: "Showcase", href: "/#showcase-section" },
+    { name: "Process", href: "/#process" },
+    { name: "AI Lab", href: "/#ai-lab" },
   ];
 
-  // --- THE FIX: Smooth Scroll Logic ---
+  // --- UPGRADED: The new smooth scroll logic ---
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    // 1. Prevent the default jump-scroll and URL hash change
     e.preventDefault();
-
-    // 2. Find the target section element on the page
     const targetId = href.replace(/.*#/, "");
-    const targetElement = document.getElementById(targetId);
 
-    // 3. If the element exists, scroll to it smoothly
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start", // Align the top of the section with the top of the viewport
-      });
-      // Close mobile menu if open
-      setIsMenuOpen(false);
+    // If we are already on the homepage, just scroll smoothly.
+    if (pathname === "/") {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      // If we are on another page, navigate to the homepage with the hash.
+      // Next.js will handle scrolling to the element with that ID on the new page.
+      router.push(href);
     }
+    // Close mobile menu if open
+    setIsMenuOpen(false);
   };
 
   const navVariants = {
@@ -52,7 +53,6 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      // ... (no changes to the nav element itself) ...
       variants={navVariants}
       initial="hidden"
       animate="visible"
@@ -60,11 +60,10 @@ const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo Section (no changes) */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-start gap-3 group">
               <Image
-                src="/logo.png"
+                src="/logot.png"
                 alt="Code & Cortex Logo"
                 width={40}
                 height={40}
@@ -81,12 +80,11 @@ const Navbar: React.FC = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation Links */}
           <div className="hidden md:block">
             <ul className="flex items-baseline space-x-8">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  {/* THE FIX: Added onClick handler */}
+                  {/* Use the new onClick handler */}
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
@@ -99,63 +97,25 @@ const Navbar: React.FC = () => {
             </ul>
           </div>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
-            {/* THE FIX: Added onClick handler */}
+            {/* The contact link also needs the new handler */}
             <a
-              href="#contact"
-              onClick={(e) => handleLinkClick(e, "#contact")}
+              href="/#contact"
+              onClick={(e) => handleLinkClick(e, "/#contact")}
               className="inline-block rounded-full bg-gradient-to-r from-[#58338a] to-[#9D4EDD] px-8 py-3 text-sm font-satoshi font-normal text-white/90 tracking-wide shadow-[0_0_15px_rgba(157,78,221,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(157,78,221,0.7)]"
             >
               Start a Conversation
             </a>
           </div>
 
-          {/* Mobile Menu Button (no changes) */}
           <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-brand-text/70 focus:outline-none"
-              aria-label="Toggle menu"
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  />
-                </svg>
-              )}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} /* ... */>
+              {/* ... icon ... */}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Panel */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -168,7 +128,6 @@ const Navbar: React.FC = () => {
             <ul className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  {/* THE FIX: Added onClick handler */}
                   <a
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
@@ -180,10 +139,9 @@ const Navbar: React.FC = () => {
               ))}
             </ul>
             <div className="py-4 px-5">
-              {/* THE FIX: Added onClick handler */}
               <a
-                href="#contact"
-                onClick={(e) => handleLinkClick(e, "#contact")}
+                href="/#contact"
+                onClick={(e) => handleLinkClick(e, "/#contact")}
                 className="block text-center rounded-full bg-brand-accent px-6 py-3 font-satoshi font-medium text-white w-full"
               >
                 Start a Conversation
