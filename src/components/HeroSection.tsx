@@ -6,6 +6,7 @@ import { Stars, Torus, PerspectiveCamera } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import ShimmerButton from "./ShimmerButton";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 // The Portal component remains, as it creates the ambient rotating ring.
 function Portal({
@@ -49,6 +50,14 @@ function Portal({
 export default function HeroSection() {
   const portalRef = useRef<THREE.Mesh>(null!);
   const shaderRef = useRef<THREE.ShaderMaterial>(null!);
+  const isMobile = useIsMobile();
+
+  const handleScroll = () => {
+    const showcaseSection = document.getElementById("showcase-section");
+    if (showcaseSection) {
+      showcaseSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="relative h-screen">
@@ -68,23 +77,27 @@ export default function HeroSection() {
           <EffectComposer>
             <Bloom luminanceThreshold={0.1} intensity={0.25} mipmapBlur />
           </EffectComposer>
-          <Portal portalRef={portalRef} shaderRef={shaderRef} />
+          <group position={isMobile ? [0, 1, 0] : [0, 0, 0]}>
+            <Portal portalRef={portalRef} shaderRef={shaderRef} />
+          </group>
         </Canvas>
       </div>
 
       {/* UI Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-        <div className="text-center pointer-events-none">
-          <h1 className="text-5xl font-bold md:text-7xl text-white font-satoshi">
-            Digital Experiences, <br /> Beyond Imagination.
-          </h1>
-          <p className="max-w-2xl mt-4 text-lg text-white/80 font-satoshi">
-            A bespoke digital studio fusing meticulous design with intelligent
-            AI to build products that captivate and perform.
-          </p>
-        </div>
-        <div className="mt-8 pointer-events-auto">
-          <ShimmerButton>Explore Our Work</ShimmerButton>
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pb-20 md:pb-0">
+        <div className="flex flex-col items-center text-center">
+          <div className="pointer-events-none">
+            <h1 className="text-5xl font-bold md:text-7xl text-white font-satoshi">
+              Digital Experiences, <br /> Beyond Imagination.
+            </h1>
+            <p className="max-w-2xl mt-4 text-lg text-white/80 font-satoshi">
+              A bespoke digital studio fusing meticulous design with intelligent
+              AI to build products that captivate and perform.
+            </p>
+          </div>
+          <div className="mt-12 md:mt-8 pointer-events-auto">
+            <ShimmerButton onClick={handleScroll}>Explore Our Work</ShimmerButton>
+          </div>
         </div>
       </div>
     </div>
