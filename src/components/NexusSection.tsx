@@ -97,7 +97,7 @@ const NexusSection: React.FC = () => {
       <div className="relative z-10 flex-grow flex flex-col justify-center items-center w-full max-w-2xl text-center">
         <h2
           ref={headlineRef}
-          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6"
+          className="text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6 whitespace-nowrap"
         >
           {isMobile ? (
             <>
@@ -188,13 +188,13 @@ const NexusSection: React.FC = () => {
           </a>
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://github.com/xayed7x"
               className="text-brand-text/60 hover:text-brand-accent hover:-translate-y-0.5 transition-all duration-300"
             >
               <GithubIcon className="w-6 h-6" />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/zayed-web-developer"
               className="text-brand-text/60 hover:text-brand-accent hover:-translate-y-0.5 transition-all duration-300"
             >
               <LinkedInIcon className="w-6 h-6" />
