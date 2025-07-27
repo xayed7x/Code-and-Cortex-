@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   // --- OPEN GRAPH (FOR SOCIAL MEDIA) ---
   openGraph: {
     type: 'website',
-    url: 'https://www.codeandcortex.com', // Replace with your actual domain later
+    url: 'https://code-and-cortex.vercel.app/', // Replace with your actual domain later
     title: 'Code & Cortex | AI-Powered Digital Experiences',
     description: 'Fusing meticulous design with intelligent AI to build unforgettable websites.',
     siteName: 'Code & Cortex',
