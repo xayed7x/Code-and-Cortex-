@@ -23,7 +23,17 @@ const NexusSection: React.FC = () => {
     if (!headline || !section) return;
 
     // --- Conditional Animation Logic ---
-    if (!isMobile) {
+    if (isMobile) {
+      // --- MOBILE: CSS Animation Triggered by GSAP ScrollTrigger ---
+      gsap.set(headline, { opacity: 0 }); // Start invisible
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 70%", // Trigger when the section is 70% in view
+        onEnter: () => headline.classList.add("animate-fade-in"),
+        once: true, // Only run the animation once
+      });
+    } else {
       // --- DESKTOP: Full GSAP Character Animation ---
       const text = headline.textContent || "";
       headline.innerHTML = "";
@@ -60,18 +70,8 @@ const NexusSection: React.FC = () => {
         repeat: -1,
         yoyo: true,
       });
-    } else {
-      // --- MOBILE: Simple, Performant Fade-in Animation ---
-      gsap.set(headline, { opacity: 0, y: 10 });
-      gsap.to(headline, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        delay: 0.3,
-      });
     }
-  }, [isMobile]); // Re-run effect only if isMobile changes, to handle resize.
+  }, [isMobile]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,25 +101,15 @@ const NexusSection: React.FC = () => {
       )}
 
       <div className="relative z-10 flex-grow flex flex-col justify-center items-center w-full max-w-2xl text-center">
+        {/* --- THE DEFINITIVE LAYOUT FIX --- */}
         <h2
-          ref={headlineRef}
-          // --- Conditional Layout Classes ---
-          className={`text-5xl md:text-7xl font-bold text-brand-text font-satoshi tracking-wide mb-6 ${
-            !isMobile ? "whitespace-nowrap" : ""
-          }`}
-        >
-          {isMobile ? (
-            // --- Mobile Text with Line Break ---
-            <>
-              Ready to build
-              <br />
-              your legacy?
-            </>
-          ) : (
-            // --- Desktop Text as a Single String ---
-            "Ready to build your legacy?"
-          )}
-        </h2>
+            ref={headlineRef}
+            className="text-5xl font-bold text-brand-text font-satoshi tracking-wide mb-6"
+          >
+            <div>Ready tobuild</div>
+            <div>your legacy?</div>
+          </h2>
+
         <p className="max-w-xl text-lg text-brand-text/80 font-satoshi mb-12">
           Our studio is ready to architect your next digital masterpiece. Let's
           start the conversation.

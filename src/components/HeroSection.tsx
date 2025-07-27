@@ -100,7 +100,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden bg-brand-background">
+    <section className="relative h-[calc(100vh-5rem)] overflow-hidden bg-brand-background">
       {/* Background Layer (Conditional) */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
         {isMobile ? <MobileScene /> : <DesktopScene />}
@@ -128,3 +128,4 @@ export default function HeroSection() {
     </section>
   );
 }
+
