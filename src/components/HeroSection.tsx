@@ -1,4 +1,4 @@
-"use client"; // Still needed for the 'useFrame' hook in the 3D components
+"use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
@@ -8,7 +8,8 @@ import * as THREE from "three";
 import ShimmerButton from "./ShimmerButton";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-// The Portal component remains, as it creates the ambient rotating ring.
+// --- Desktop-Only 3D Components ---
+// These will not be included in the mobile bundle
 function Portal({
   portalRef,
   shaderRef,
@@ -18,7 +19,7 @@ function Portal({
 }) {
   useFrame((state, delta) => {
     if (portalRef.current) {
-      portalRef.current.rotation.z += delta * 0.1; // This creates the "wave" effect
+      portalRef.current.rotation.z += delta * 0.1;
     }
     if (shaderRef.current) {
       shaderRef.current.uniforms.uTime.value += delta;
@@ -47,9 +48,54 @@ function Portal({
   );
 }
 
-export default function HeroSection() {
+function DesktopScene() {
   const portalRef = useRef<THREE.Mesh>(null!);
   const shaderRef = useRef<THREE.ShaderMaterial>(null!);
+  return (
+    <Canvas>
+      <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={75} />
+      <Stars
+        radius={200}
+        depth={50}
+        count={5000}
+        factor={7}
+        saturation={0}
+        fade
+        speed={2}
+      />
+      <EffectComposer>
+        <Bloom luminanceThreshold={0.1} intensity={0.25} mipmapBlur />
+      </EffectComposer>
+      <Portal portalRef={portalRef} shaderRef={shaderRef} />
+    </Canvas>
+  );
+}
+
+// --- Mobile-Only 2D Background ---
+function MobileScene() {
+  return (
+    <div className="relative w-full h-full">
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url(/starfield-bg.jpg)" }}
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative w-80 h-80">
+          <div className="absolute inset-0 rounded-full bg-brand-accent/20 animate-[portal-pulse_6s_ease-in-out_infinite]" />
+          <div
+            className="absolute inset-5 rounded-full"
+            style={{
+              border: "2px solid #9D4EDD",
+              boxShadow: "0 0 20px #9D4EDD, 0 0 30px #9D4EDD",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function HeroSection() {
   const isMobile = useIsMobile();
 
   const handleScroll = () => {
@@ -60,46 +106,28 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="relative h-screen">
-      {/* 3D Canvas */}
+    // THE FIX: This root element now contains the overflow, preventing any page-wide side effects.
+    <section className="relative h-screen overflow-hidden bg-brand-background">
+      {/* Background Layer (Conditional) */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
-        <Canvas>
-          <PerspectiveCamera makeDefault position={[0, 0, 10]} fov={75} />
-          <Stars
-            radius={200}
-            depth={50}
-            count={5000}
-            factor={7}
-            saturation={0}
-            fade
-            speed={2}
-          />
-          <EffectComposer>
-            <Bloom luminanceThreshold={0.1} intensity={0.25} mipmapBlur />
-          </EffectComposer>
-          <group position={isMobile ? [0, 1, 0] : [0, 0, 0]}>
-            <Portal portalRef={portalRef} shaderRef={shaderRef} />
-          </group>
-        </Canvas>
+        {isMobile ? <MobileScene /> : <DesktopScene />}
       </div>
 
-      {/* UI Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full pb-20 md:pb-0">
-        <div className="flex flex-col items-center text-center">
-          <div className="pointer-events-none">
-            <h1 className="text-5xl font-bold md:text-7xl text-white font-satoshi">
-              Digital Experiences, <br /> Beyond Imagination.
-            </h1>
-            <p className="max-w-2xl mt-4 text-lg text-white/80 font-satoshi">
-              A bespoke digital studio fusing meticulous design with intelligent
-              AI to build products that captivate and perform.
-            </p>
-          </div>
-          <div className="mt-12 md:mt-8 pointer-events-auto">
-            <ShimmerButton onClick={handleScroll}>Explore Our Work</ShimmerButton>
-          </div>
+      {/* Shared UI Layer */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
+        <div className="pointer-events-none">
+          <h1 className="text-5xl font-bold md:text-7xl text-white font-satoshi">
+            Digital Experiences, <br /> Beyond Imagination.
+          </h1>
+          <p className="max-w-2xl mt-4 text-lg text-white/80 font-satoshi">
+            A bespoke digital studio fusing meticulous design with intelligent
+            AI to build products that captivate and perform.
+          </p>
+        </div>
+        <div className="mt-12 md:mt-8 pointer-events-auto">
+          <ShimmerButton onClick={handleScroll}>Explore Our Work</ShimmerButton>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
