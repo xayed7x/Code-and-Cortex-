@@ -8,8 +8,7 @@ import * as THREE from "three";
 import ShimmerButton from "./ShimmerButton";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-// --- Desktop-Only 3D Components ---
-// These will not be included in the mobile bundle
+// --- Desktop-Only 3D Components (No changes needed here) ---
 function Portal({
   portalRef,
   shaderRef,
@@ -18,12 +17,8 @@ function Portal({
   shaderRef: React.RefObject<THREE.ShaderMaterial>;
 }) {
   useFrame((state, delta) => {
-    if (portalRef.current) {
-      portalRef.current.rotation.z += delta * 0.1;
-    }
-    if (shaderRef.current) {
-      shaderRef.current.uniforms.uTime.value += delta;
-    }
+    if (portalRef.current) portalRef.current.rotation.z += delta * 0.1;
+    if (shaderRef.current) shaderRef.current.uniforms.uTime.value += delta;
   });
   return (
     <Torus ref={portalRef} args={[3, 0.15, 32, 128]}>
@@ -71,7 +66,6 @@ function DesktopScene() {
   );
 }
 
-// --- Mobile-Only 2D Background ---
 function MobileScene() {
   return (
     <div className="relative w-full h-full">
@@ -106,25 +100,28 @@ export default function HeroSection() {
   };
 
   return (
-    // THE FIX: This root element now contains the overflow, preventing any page-wide side effects.
     <section className="relative h-screen overflow-hidden bg-brand-background">
       {/* Background Layer (Conditional) */}
       <div className="absolute top-0 left-0 w-full h-full z-0">
         {isMobile ? <MobileScene /> : <DesktopScene />}
       </div>
 
-      {/* Shared UI Layer */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
+      {/* --- CORRECTED UI LAYER --- */}
+      {/* This single container now holds all UI elements for proper centering */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center px-4">
+        {/* Text Block */}
         <div className="pointer-events-none">
           <h1 className="text-5xl font-bold md:text-7xl text-white font-satoshi">
             Digital Experiences, <br /> Beyond Imagination.
           </h1>
           <p className="max-w-2xl mt-4 text-lg text-white/80 font-satoshi">
             A bespoke digital studio fusing meticulous design with intelligent
-            AI to build products that captivate and perform.
+            AI to build Websites that captivate and perform.
           </p>
         </div>
-        <div className="mt-12 md:mt-8 pointer-events-auto">
+
+        {/* Button Block (Now inside the main flex container) */}
+        <div className="mt-12 pointer-events-auto">
           <ShimmerButton onClick={handleScroll}>Explore Our Work</ShimmerButton>
         </div>
       </div>
