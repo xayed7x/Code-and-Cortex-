@@ -44,7 +44,10 @@ export const metadata: Metadata = {
     siteName: "Code & Cortex",
     images: [
       {
-        url: "/og-image.png", // This is the file you will create
+        url: '/og-image.png', // This will become an absolute URL
+        width: 1200,
+        height: 630,
+        alt: 'Code & Cortex Agency Logo and Tagline',
       },
     ],
   },
