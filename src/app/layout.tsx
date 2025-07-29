@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { satoshi, ibmPlexMono } from "./fonts";
 import "./globals.css";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   // --- CORE METADATA ---
@@ -28,6 +27,12 @@ export const metadata: Metadata = {
     { name: "Zayed", url: "https://www.linkedin.com/in/zayed-web-developer" },
   ],
   creator: "Zayed",
+
+  verification: {
+    google: "hWY_M3uBePeRTT9uESKKM-lIlLHCvF7-9tluj1sB_Jw",
+    
+    // You can add other verification codes here in the future if needed
+  },
 
   // --- OPEN GRAPH (FOR SOCIAL MEDIA) ---
   openGraph: {
@@ -60,12 +65,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${satoshi.variable} ${ibmPlexMono.variable}`}>
-      <Head>
-        <meta
-          name="google-site-verification"
-          content="hWY_M3uBePeRTT9uESKKM-lIlLHCvF7-9tluj1sB_Jw"
-        />
-      </Head>
       <body>
         {/* This '{children}' is your page.tsx. There is nothing else. */}
         {children}

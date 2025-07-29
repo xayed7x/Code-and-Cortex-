@@ -203,7 +203,7 @@ const NexusSection: React.FC = () => {
             </a>
           </div>
           <p className="font-ibm-plex-mono text-xs text-brand-text/50 pt-2">
-            © 2024 Studio Zayed. Crafted with AI and Passion.
+            © 2024 Code Cortex. Crafted Zayed Bin Hamid.
           </p>
         </div>
       </footer>
