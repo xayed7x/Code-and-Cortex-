@@ -1,24 +1,22 @@
-import { MetadataRoute } from 'next';
-import { projects } from '@/lib/projects-data';
+import { MetadataRoute } from "next";
+import { projects } from "@/lib/projects-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://code-and-cortex.vercel.app/';
+  const baseUrl = "https://code-and-cortex.vercel.app"; // ✅ Fixed
 
-  // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
+      lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
       priority: 1,
     },
   ];
 
-  // Dynamic routes from project data
   const dynamicRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${baseUrl}/case-study/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'yearly',
+    url: `${baseUrl}/case-study/${project.slug}`, // ✅ No double slash
+    lastModified: new Date().toISOString(),
+    changeFrequency: "yearly",
     priority: 0.8,
   }));
 
