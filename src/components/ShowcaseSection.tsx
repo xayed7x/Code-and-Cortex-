@@ -25,6 +25,15 @@ const projects = [
     liveUrl: "https://qbrain-ai.vercel.app/", // <-- ADD THIS
     techStack: ["HTML","CSS", "JS", "FastAPI", "Python", "React", "GSAP" ],
   },
+  {
+    slug: "telecom-fair-ecommerce",
+    title: "Telecom Fair: Mobile Shopping, Reimagined",
+    description: "Crafting a clean, elegant mobile e-commerce experience for the next generation of shoppers in Bangladesh.",
+    imageUrl: "/images/telecomfair-1.png", // Using qbrain.png as a placeholder for now, as telecomfair-1.png is not in the provided public/images list.
+    caseStudyUrl: "#",
+    liveUrl: "https://telecomfair.vercel.app/",
+    techStack: ["Next.js", "Tailwind CSS"],
+  },
 ];
 
 const ShowcaseSection: React.FC = () => {

@@ -174,4 +174,61 @@ export const projects: Project[] = [
       },
     },
   },
+
+  {
+  slug: "telecom-fair-ecommerce",
+  hero: {
+    title: "Telecom Fair: Mobile Shopping, Reimagined",
+    tagline: "Crafting a clean, elegant mobile e-commerce experience for the next generation of shoppers in Bangladesh.",
+    atAGlance: [
+      { label: "Tech Stack", value: "Next.js, Tailwind CSS" },
+      { label: "Core Innovation", value: "User-Centered E-commerce UI" },
+      { label: "Timeline", value: "2 Weeks" },
+    ],
+  },
+  brief: {
+    title: "The Brief",
+    challenge:
+      "Most mobile e-commerce sites in Bangladesh are cluttered, slow, and difficult to navigate. The client needed a visually modern yet information-rich experience that reflects a premium brand identity.",
+    vision:
+      "We imagined an experience where users could browse, compare, and trust what they see. By putting ourselves in the user's shoes, we redefined what it means to shop for mobile phones online in a clean, focused, and smooth interface.",
+  },
+  cortex: {
+    title: "The Cortex",
+    approach: [
+      "Built with Next.js and Tailwind CSS for optimal performance and flexible component-based architecture.",
+      "Designed a clean homepage featuring a bold hero section, search bar, and product slider.",
+      "Wrapped product specs and extra details inside clean modal pages to reduce homepage clutter and focus user attention.",
+    ],
+  },
+  code: {
+    title: "The Code: E-commerce Made Sleek",
+    features: [
+      {
+        title: "Premium Hero Section & CTA",
+        ux: "We led with a full-screen hero section showcasing flagship products like the iPhone 15 Pro Max, combining high-res visuals with standout CTAs.",
+        tech: "Tailwind CSS powered the layout, ensuring full responsiveness. Image sliders and product cards were custom-built using utility-first classes.",
+        visual: "/images/telecomfair-1.png", // Replace this with the real image path
+      },
+      {
+        title: "Smart Product Browsing Experience",
+        ux: "Instead of overwhelming users with all data up front, we used intelligent routing and modal-based navigation to reveal deeper info only when needed.",
+        tech: "Next.js routing was leveraged to dynamically render product pages. Search functionality was added to improve user flow.",
+        visual: "/images/telecomfair-2.png", // Replace with actual
+      },
+    ],
+  },
+  impact: {
+    title: "The Impact",
+    result:
+      "The final site delivered an impressive, premium e-commerce experience for the client’s mobile business. It redefined their digital presence and helped boost trust and conversions.",
+    testimonial: {
+      quote:
+        "Our new website feels like a premium showroom. Zayed and his team truly understood our business needs and delivered more than we imagined.",
+      author: "Mobile Shop Owner",
+      role: "Owner, Telecom Fair",
+    },
+  },
+}
+
 ];
