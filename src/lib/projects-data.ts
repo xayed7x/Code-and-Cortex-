@@ -229,6 +229,72 @@ export const projects: Project[] = [
       role: "Owner, Telecom Fair",
     },
   },
+},
+//Project 4
+
+{
+  slug: "progresso-productivity-app",
+  
+  hero: {
+    title: "Progresso: Turning Time into Tangible Goals",
+    tagline:
+      "A productivity and goal-tracking app designed to help individuals and teams master their time and achieve more with less stress.",
+    atAGlance: [
+      { label: "Industry", value: "Productivity & Personal Development" },
+      { label: "Services", value: "Full Product Design, AI Integration, Web & Mobile App Development" },
+      { label: "Core Tech", value: "Next.js, Supabase, OpenAI API, TailwindCSS" },
+    ],
+  },
+  brief: {
+    title: "The Brief",
+    challenge:
+      "People juggle countless tasks every day, yet most tools fail to provide a simple, clear way to connect daily habits to long-term goals. Many productivity apps either overcomplicate the process or ignore offline activities entirely.",
+    vision:
+      "Our vision with Progresso was to create a sleek, intuitive platform that blends manual time logging with AI-powered insights, enabling users to track their entire day — both on and off devices — and progressively move towards their goals.",
+  },
+  cortex: {
+    title: "The Cortex",
+    approach: [
+      "A Hybrid Time-Tracking Approach: Allowing both automatic and manual activity logging ensures even offline work like studying with pen & paper or family time gets tracked.",
+      "Goal-Oriented AI Assistance: An integrated AI chatbot helps users set realistic goals, adjust them over time, and keep them on track.",
+      "Cross-Platform Consistency: A unified experience on mobile, tablet, and desktop ensures users can log activities or check progress anytime, anywhere.",
+    ],
+  },
+  code: {
+    title: "The Code: Simple, Fast, and Intelligent",
+    features: [
+      {
+        title: "Unified Dashboard with Progress Analytics",
+        ux: "Users see where their time goes at a glance, broken down into categories like Study, Social Media, Workouts, and Religious Activities.",
+        tech: "We built an analytics layer on Supabase with real-time listeners to instantly update dashboards when new logs are added.",
+        visual: "/images/progresso-dashboard.png",
+      },
+      {
+        title: "AI Goal Coach",
+        ux: "The AI assistant learns from user habits and provides tailored suggestions to improve productivity and stay aligned with long-term objectives.",
+        tech: "Integrated OpenAI API with custom prompt engineering and session-based learning stored in Supabase.",
+        visual: "/progresso.png",
+      },
+      {
+        title: "Seamless Offline Activity Logging",
+        ux: "Users can quickly log offline activities in just two taps, choosing from predefined categories or adding custom labels.",
+        tech: "Used a lightweight form system with indexedDB caching for offline-first experience, syncing with Supabase when back online.",
+        visual: "/progresso.png",
+      },
+    ],
+  },
+  impact: {
+    title: "The Impact",
+    result:
+      "Progresso bridges the gap between awareness and action, giving users a clear map of their day and empowering them to make better decisions with their time. It has already attracted early sign-ups from students, entrepreneurs, and busy professionals.",
+    testimonial: {
+      quote:
+        "Progresso didn’t just help me organize my schedule — it changed the way I think about my goals. The balance between simplicity and intelligence is unmatched.",
+      author: "Samir Khan",
+      role: "Early Access User",
+    },
+  },
 }
+
 
 ];

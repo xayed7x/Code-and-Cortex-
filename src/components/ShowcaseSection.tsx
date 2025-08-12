@@ -2,39 +2,56 @@
 
 import React from "react";
 import ProjectCard from "./ProjectCard";
-import AnimatedBorderCard from './AnimatedBorderCard';
+import { projects as caseStudies } from "@/lib/projects-data";
 
-// THE DATA STRUCTURE: Mock data array for our projects
-const projects = [
-  {
-    slug: "personalized-ecommerce-experience",
-    title: "AURA - A Bespoke Digital Flagship for a Luxury Perfume Brand",
-    description:
-      "Fusing interactive 3D with a Personalized recommendation engine.",
-    imageUrl: "/aura.png",
-    caseStudyUrl: "#", // This is the case study link
-    liveUrl: "https://aura-frontend-gamma.vercel.app" ,// <-- ADD THIS
-    techStack: ["Next.js","React","Typescript","Tailwind css","Python", "Django","REST Framework", "GSAP",  "React Three Fiber", "Drei", "JWT", "PostgreSQL",],
-  },
-  {
-    slug: "ai-brand-tone-analyzer",
-    title: "The Mentor in the Machine: Architecting QBrain AI",
-    description: "Engineering a hyper-local, curriculum-aware AI tutor to revolutionize exam preparation for a nation of students.",
-    imageUrl: "/qbrain.png",
-    caseStudyUrl: "#", // This is the case study link
-    liveUrl: "https://qbrain-ai.vercel.app/", // <-- ADD THIS
-    techStack: ["HTML","CSS", "JS", "FastAPI", "Python", "React", "GSAP" ],
-  },
-  {
-    slug: "telecom-fair-ecommerce",
-    title: "Telecom Fair: Mobile Shopping, Reimagined",
-    description: "Crafting a clean, elegant mobile e-commerce experience for the next generation of shoppers in Bangladesh.",
-    imageUrl: "/images/telecomfair-1.png", // Using qbrain.png as a placeholder for now, as telecomfair-1.png is not in the provided public/images list.
+const imageOverrideBySlug: Record<string, string> = {
+  "personalized-ecommerce-experience": "/aura.png",
+  "ai-brand-tone-analyzer": "/qbrain.png",
+  "telecom-fair-ecommerce": "/images/telecomfair-1.png",
+  // Progresso doesn't have images under /public/images; use top-level fallback
+  "progresso-productivity-app": "/progresso.png",
+};
+
+const liveUrlBySlug: Record<string, string> = {
+  "personalized-ecommerce-experience": "https://aura-frontend-gamma.vercel.app",
+  "ai-brand-tone-analyzer": "https://qbrain-ai.vercel.app/",
+  "telecom-fair-ecommerce": "https://telecomfair.vercel.app/",
+  "progresso-productivity-app": "https://preogresso-app.vercel.app/",
+};
+
+const techStackBySlug: Record<string, string[]> = {
+  "personalized-ecommerce-experience": [
+    "Next.js",
+    "React",
+    "Typescript",
+    "Tailwind css",
+    "Python",
+    "Django",
+    "REST Framework",
+    "GSAP",
+    "React Three Fiber",
+    "Drei",
+    "JWT",
+    "PostgreSQL",
+  ],
+  "ai-brand-tone-analyzer": ["HTML", "CSS", "JS", "FastAPI", "Python", "React", "GSAP"],
+  "telecom-fair-ecommerce": ["Next.js", "Tailwind CSS"],
+  "progresso-productivity-app": ["Next.js", "Tailwind CSS"],
+};
+
+const cards = caseStudies.map((p) => {
+  const fallbackFromFeature = p.code?.features?.[0]?.visual ?? "";
+  const imageUrl = imageOverrideBySlug[p.slug] || fallbackFromFeature || "/og-image.png";
+  return {
+    slug: p.slug,
+    title: p.hero.title,
+    description: p.hero.tagline,
+    imageUrl,
     caseStudyUrl: "#",
-    liveUrl: "https://telecomfair.vercel.app/",
-    techStack: ["Next.js", "Tailwind CSS"],
-  },
-];
+    liveUrl: liveUrlBySlug[p.slug],
+    techStack: techStackBySlug[p.slug] || [],
+  };
+});
 
 const ShowcaseSection: React.FC = () => {
   return (
@@ -58,7 +75,7 @@ const ShowcaseSection: React.FC = () => {
 
         {/* Dynamic Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {projects.map((project) => (
+          {cards.map((project) => (
             <ProjectCard
               key={project.slug}
               project={project} // Pass the entire project object as a prop
