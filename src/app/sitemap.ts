@@ -2,20 +2,27 @@ import { MetadataRoute } from "next";
 import { projects } from "@/lib/projects-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://code-and-cortex.vercel.app"; // ✅ Fixed
+  const baseUrl = "https://code-and-cortex.vercel.app";
+  const currentDate = new Date().toISOString();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
-      lastModified: new Date().toISOString(),
+      lastModified: currentDate,
+      changeFrequency: "weekly",
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/case-study`,
+      lastModified: currentDate,
       changeFrequency: "monthly",
-      priority: 1,
+      priority: 0.9,
     },
   ];
 
   const dynamicRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${baseUrl}/case-study/${project.slug}`, // ✅ No double slash
-    lastModified: new Date().toISOString(),
+    url: `${baseUrl}/case-study/${project.slug}`,
+    lastModified: currentDate,
     changeFrequency: "yearly",
     priority: 0.8,
   }));

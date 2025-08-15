@@ -3,7 +3,66 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { projects } from "@/lib/projects-data";
-import Navbar from "@/components/Navbar"; // Import data from our new central file
+import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+
+// Generate dynamic metadata for each case study
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const project = projects.find((p) => p.slug === params.slug);
+
+  if (!project) {
+    return {
+      title: "Case Study Not Found | Code & Cortex",
+      description: "The requested case study could not be found.",
+    };
+  }
+
+  const baseUrl = "https://code-and-cortex.vercel.app";
+  const projectUrl = `${baseUrl}/case-study/${project.slug}`;
+
+  return {
+    title: `${project.hero.title} | Code & Cortex Case Study`,
+    description: project.hero.tagline,
+    keywords: [
+      "case study",
+      "web development",
+      "AI development",
+      "UI/UX design",
+      "Next.js",
+      "React",
+      "Bangladesh web developer",
+      ...project.hero.atAGlance.map(item => item.value.toLowerCase()),
+    ],
+    openGraph: {
+      title: `${project.hero.title} | Code & Cortex Case Study`,
+      description: project.hero.tagline,
+      url: projectUrl,
+      type: "article",
+      images: [
+        {
+          url: `${baseUrl}/images/case-study-visual-1.png`,
+          width: 1200,
+          height: 630,
+          alt: `${project.hero.title} - Case Study Visual`,
+        },
+      ],
+      siteName: "Code & Cortex",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.hero.title} | Code & Cortex Case Study`,
+      description: project.hero.tagline,
+      images: [`${baseUrl}/images/case-study-visual-1.png`],
+    },
+    alternates: {
+      canonical: projectUrl,
+    },
+  };
+}
 
 export default function CaseStudyPage({
   params,
@@ -18,8 +77,53 @@ export default function CaseStudyPage({
     notFound();
   }
 
+  const baseUrl = "https://code-and-cortex.vercel.app";
+  const projectUrl = `${baseUrl}/case-study/${project.slug}`;
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": project.hero.title,
+            "description": project.hero.tagline,
+            "url": projectUrl,
+            "author": {
+              "@type": "Organization",
+              "name": "Code & Cortex",
+              "url": baseUrl
+            },
+            "creator": {
+              "@type": "Person",
+              "name": "Zayed Bin Hamid",
+              "jobTitle": "Founder & Lead Developer"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Code & Cortex",
+              "url": baseUrl
+            },
+            "datePublished": new Date().toISOString(),
+            "dateModified": new Date().toISOString(),
+            "image": `${baseUrl}/images/case-study-visual-1.png`,
+            "mainEntity": {
+              "@type": "Service",
+              "name": project.hero.title,
+              "description": project.hero.tagline,
+              "provider": {
+                "@type": "Organization",
+                "name": "Code & Cortex"
+              },
+              "serviceType": project.hero.atAGlance
+                .filter(item => item.label === "Services" || item.label === "Tech Stack")
+                .map(item => item.value)
+            }
+          })
+        }}
+      />
       <Navbar /> {/* The new, persistent navigation header */}
       <main className="bg-brand-background text-brand-text font-satoshi">
         {/* All sections below will now be populated by the dynamic 'project' object */}
