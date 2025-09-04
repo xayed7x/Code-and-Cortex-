@@ -55,7 +55,7 @@ body{
   border-radius: inherit; /* Inherits the parent's border-radius */
   width: calc(100% + 4px); /* Slightly larger than parent */
   height: calc(100% + 4px); /* Slightly larger than parent */
-  animation: spin 5s linear infinite; /* Applies the rotation */
+  animation: spin 8s linear infinite; /* Applies the rotation */
 }
 
 /* The visible, sharp border line */
@@ -82,8 +82,8 @@ body{
     transparent 95%,
     #3C096C
   );
-  filter: blur(1.8rem); /* The blur effect */
-  opacity: 0.6; /* A more subtle glow */
+  filter: blur(1.2rem); /* The blur effect */
+  opacity: 0.4; /* A more subtle glow */
 }
 
 @keyframes pulse-glow {

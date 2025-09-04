@@ -10,6 +10,7 @@ const imageOverrideBySlug: Record<string, string> = {
   "telecom-fair-ecommerce": "/images/telecomfair-1.png",
   // Progresso doesn't have images under /public/images; use top-level fallback
   "progresso-productivity-app": "/progresso.png",
+  "nexacart-fullstack-platform": "/nexa-cart.png",
 };
 
 const liveUrlBySlug: Record<string, string> = {
@@ -17,6 +18,7 @@ const liveUrlBySlug: Record<string, string> = {
   "ai-brand-tone-analyzer": "https://qbrain-ai.vercel.app/",
   "telecom-fair-ecommerce": "https://telecomfair.vercel.app/",
   "progresso-productivity-app": "https://preogresso-app.vercel.app/",
+  "nexacart-fullstack-platform": "https://nexa-cart.vercel.app/",
 };
 
 const techStackBySlug: Record<string, string[]> = {

@@ -294,7 +294,68 @@ export const projects: Project[] = [
       role: "Early Access User",
     },
   },
+},
+//project 5
+
+{
+  "slug": "nexacart-fullstack-platform",
+  "showcaseVideoUrl": "https://player.vimeo.com/video/your-nexacart-video-id?autoplay=1&dnt=1&byline=0&portrait=0&title=0",
+  "hero": {
+    "title": "NexaCart: Engineering a Universal Commerce Platform",
+    "tagline": "A single, scalable foundation for any business, from boutique brands to enterprise catalogs.",
+    "atAGlance": [
+      { "label": "Industry", "value": "E-commerce Platform / SaaS" },
+      {
+        "label": "Services",
+        "value": "Full-Stack Development, Backend Architecture, UI/UX"
+      },
+      { "label": "Core Tech", "value": "Next.js, Prisma, Supabase, Tailwind" }
+    ]
+  },
+  "brief": {
+    "title": "The Brief",
+    "challenge": "Businesses entering the e-commerce space are often trapped between two undesirable options: cheap, inflexible templates that stifle growth, or expensive, time-consuming custom builds. There was a clear market need for a third option.",
+    "vision": "Our vision was to architect a 'Universal Commerce Platform.' A single, robust, and highly adaptable foundation that provides the speed-to-market of a template but is engineered with the power, scalability, and feature set of a bespoke, enterprise-grade application."
+  },
+  "cortex": {
+    "title": "The Cortex",
+    "approach": [
+      "A Modern, Full-Stack Architecture: We leveraged the VSPN Stack (Vercel, Supabase, Prisma, Next.js) to create a tightly integrated, full-stack application, ensuring optimal performance, type-safety, and a seamless developer experience.",
+      "A Business-First Backend: The project's core is a comprehensive Admin Panel. We prioritized building the business management tools first, ensuring the platform solved real-world operational challenges like product and order management.",
+      "Localized & Global Payment Gateways: To maximize market applicability, we implemented a multi-gateway system from the start, supporting both global leaders like Stripe and essential local payment aggregators like SSLCOMMERZ."
+    ]
+  },
+  "code": {
+    "title": "The Code: Digital Alchemy in Action",
+    "features": [
+      {
+        "title": "The Unified Multi-Gateway Checkout",
+        "ux": "The user is presented with a clear choice between international card payments or local methods. Regardless of their selection, the experience is seamless, secure, and concludes on a consistent, professional order confirmation page.",
+        "tech": "We created two distinct server-side API endpoints: one for Stripe's Payment Intents and another for SSLCOMMERZ's session initiation. The SSLCOMMERZ flow is hardened with a secure, server-to-server IPN listener to validate transactions, ensuring 100% data integrity.",
+        "visual": "/images/nexa-cartcheckout.png"
+      },
+      {
+        "title": "The Real-Time Admin Command Center",
+        "ux": "An administrator logs in and is immediately presented with a high-level overview of their business—total revenue, sales volume, and recent orders—without needing to consult a separate analytics tool. It's an instant pulse-check of the business.",
+        "tech": "This dashboard is a Next.js Server Component that directly and securely queries the Supabase database. We used Prisma's powerful aggregation functions (`_sum`, `_count`) to perform efficient calculations on the server, ensuring the dashboard is both fast and always up-to-date.",
+        "visual": "/images/nexacartadmin.png"
+      },
+      {
+        "title": "Frictionless Product Management with Cloud Storage",
+        "ux": "An admin can create a new product, drag and drop an image from their computer, set the price and stock, and click 'save'. The new product appears on the live storefront instantly, with the image served from a global CDN.",
+        "tech": "The form submission is handled by a Next.js API route. This route uses the Supabase Storage SDK to upload the image file directly to a secure bucket, which returns a public URL. The Prisma client then writes the complete product data, including the new image URL, to the PostgreSQL database in a single transaction.",
+        "visual": "/images/nexacartproduct.png"
+      }
+    ]
+  },
+  "impact": {
+    "title": "The Impact",
+    "result": "NexaCart is not just a website; it's a scalable business asset. It provides a robust, production-ready foundation that dramatically reduces the time-to-market for any e-commerce venture, giving them enterprise-grade tools from day one and a platform that can grow with them.",
+    "testimonial": {
+      "quote": "NexaCart isn't just a template; it's a complete business operating system. We went from concept to live sales in record time, with a backend that feels like it was custom-built for our needs. The flexibility is incredible.",
+      "author": "Julian Croft",
+      "role": "Founder, Artisan Collective"
+    }
+  }
 }
-
-
-];
+]
