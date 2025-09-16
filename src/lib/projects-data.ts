@@ -17,6 +17,7 @@ interface Feature {
 export interface Project {
   slug: string;
   showcaseVideoUrl?: string; // The '?' makes this property optional
+  liveUrl?: string;
   hero: {
     title: string;
     tagline: string;
@@ -53,6 +54,7 @@ export const projects: Project[] = [
     slug: "personalized-ecommerce-experience",
     showcaseVideoUrl:
       "https://player.vimeo.com/video/1099619139?autoplay=1&dnt=1&byline=0&portrait=0&title=0", // Use embedded Vimeo video URL
+    liveUrl: "https://aura-perfume.vercel.app",
     hero: {
       title: "AURA: Architecting a Bespoke Digital Flagship",
       tagline:
@@ -94,7 +96,7 @@ export const projects: Project[] = [
           title: 'The "Live" Headless Journal',
           ux: "The AURA team can publish articles and see changes appear on the live website instantly, with no waiting for a lengthy build process or cache refresh. The content workflow is as fast and responsive as the site itself.",
           tech: "We utilized Django Signals on the backend to trigger a secure webhook to a Next.js API route. This route uses the `revalidateTag` function to intelligently purge only the specific cache entries related to the updated content.",
-          visual: "/images/case-study-visual-2.png",
+          visual: "/aura.png",
         },
         {
           title: "The Seamless & Secure Authentication Flow",

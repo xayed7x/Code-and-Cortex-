@@ -14,10 +14,10 @@ const imageOverrideBySlug: Record<string, string> = {
 };
 
 const liveUrlBySlug: Record<string, string> = {
-  "personalized-ecommerce-experience": "https://aura-frontend-gamma.vercel.app",
+  "personalized-ecommerce-experience": "https://aura-perfume.vercel.app",
   "ai-brand-tone-analyzer": "https://qbrain-ai.vercel.app/",
   "telecom-fair-ecommerce": "https://telecomfair.vercel.app/",
-  "progresso-productivity-app": "https://preogresso-app.vercel.app/",
+  "progresso-productivity-app": "https://progressly-com.vercel.app/",
   "nexacart-fullstack-platform": "https://nexa-cart.vercel.app/",
 };
 
