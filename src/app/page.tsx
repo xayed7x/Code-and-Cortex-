@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import NewHeroSection from '@/components/NewHeroSection';
 import ShowcaseSection from '@/components/ShowcaseSection'
+import PricingSection from '@/components/PricingSection';
 import ProcessVideoSection from '@/components/ProcessVideoSection';
 import LiveAILab from '@/components/LiveAILab'; 
 import TrustSignalSection from '@/components/TrustSignalSection'; 
@@ -38,6 +39,7 @@ export default function Home() {
       <ShowcaseSection />
       <ProcessVideoSection/>
       <TrustSignalSection />
+      <PricingSection />
       <LiveAILab />
       <NexusSection /> 
     </>
