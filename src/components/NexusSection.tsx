@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GithubIcon from "./GithubIcon";
 import LinkedInIcon from "./LinkedInIcon";
+import WhatsAppIcon from "./WhatsAppIcon";
 import EmailIcon from "./EmailIcon";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -191,15 +192,27 @@ const NexusSection: React.FC = () => {
           <div className="flex items-center gap-6">
             <a
               href="https://github.com/xayed7x"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-brand-text/60 hover:text-brand-accent hover:-translate-y-0.5 transition-all duration-300"
             >
               <GithubIcon className="w-6 h-6" />
             </a>
             <a
               href="https://www.linkedin.com/in/zayed-web-developer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-brand-text/60 hover:text-brand-accent hover:-translate-y-0.5 transition-all duration-300"
             >
               <LinkedInIcon className="w-6 h-6" />
+            </a>
+            <a
+              href="https://wa.me/01977994057"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-text/60 hover:text-brand-accent hover:-translate-y-0.5 transition-all duration-300"
+            >
+              <WhatsAppIcon className="w-6 h-6" />
             </a>
           </div>
           <p className="font-ibm-plex-mono text-xs text-brand-text/50 pt-2">
